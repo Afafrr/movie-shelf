@@ -7,25 +7,29 @@
 <% if alert.present? %>
   <p style='color: red'><%= alert %></p>
 <% end %>
+
 <% @watchlist_items.each do |item| %>
-  <div>
+  <div class="title-close-btn-wrapper">
     <h2><%= item.movie.title %> (<%= item.movie.year %>)</h2>
+    <%= button_to "x",
+        watchlist_item_path(item),
+        method: :delete,
+        class: "btn btn-dark" %>
+  </div>  
 
-    <p>Status: <%= item.status %></p>
-    <p>Favorite: <%= item.favorite ? "Yes" : "No" %></p>
-    <p><%= item.movie.overview %></p>
-
-    <%= form_with model: item do |form| %>
-      <div>
-        <%= form.label :status %>
-        <%= form.select :status, WatchlistItem::STATUS_OPTIONS, {}, onchange: "this.form.requestSubmit()" %>
-      </div>
-
-      <div>
-        <%= form.label :favorite %>
-        <%= form.check_box :favorite, onchange: "this.form.requestSubmit()" %>
-      </div>
-    <% end %>
-  </div>
+  <p>Status: <%= item.status %></p>
+  <p>Favorite: <%= item.favorite ? "Yes" : "No" %></p>
+  <p><%= item.movie.overview %></p>  
+  
+  <%= form_with model: item do |form| %>
+    <div>
+      <%= form.label :status %>
+      <%= form.select :status, WatchlistItem::STATUS_OPTIONS, {}, onchange: "this.form.requestSubmit()" %>
+    </div>    
+    <div>
+      <%= form.label :favorite %>
+      <%= form.check_box :favorite, onchange: "this.form.requestSubmit()" %>
+    </div>
+  <% end %>
   <hr>
 <% end %>

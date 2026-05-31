@@ -16,4 +16,15 @@ class WatchlistItemsController < ApplicationController
       redirect_to watchlist_items_path, alert: "Could not update status."
     end
   end
+
+  def destroy
+    @user = User.first
+    @watchlist_item = @user.watchlist_items.destroy(params[:id])
+
+    if @watchlist_item
+      redirect_to watchlist_items_path, notice: "Item deleted."
+    else
+      redirect_to watchlist_items_path, alert: "Could not delete item."
+    end
+  end
 end

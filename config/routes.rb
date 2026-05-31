@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   root "watchlist_items#index"
 
-  resources :watchlist_items, only: [ :index, :update ]
+  resources :watchlist_items, only: [:index, :update, :destroy]
 end
