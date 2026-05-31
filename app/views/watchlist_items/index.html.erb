@@ -8,6 +8,14 @@
   <p style='color: red'><%= alert %></p>
 <% end %>
 
+<nav>
+  <%= link_to "All", watchlist_items_path %>
+  <% WatchlistItem::STATUS_OPTIONS.each do |key, val|%>
+    <%= link_to val, watchlist_items_path(status: key) %>
+  <% end %>
+</nav>
+<hr>
+
 <% @watchlist_items.each do |item| %>
   <div class="title-close-btn-wrapper">
     <h2><%= item.movie.title %> (<%= item.movie.year %>)</h2>
@@ -24,7 +32,7 @@
   <%= form_with model: item do |form| %>
     <div>
       <%= form.label :status %>
-      <%= form.select :status, WatchlistItem::STATUS_OPTIONS, {}, onchange: "this.form.requestSubmit()" %>
+      <%= form.select :status, WatchlistItem::STATUS_OPTIONS.keys, {}, onchange: "this.form.requestSubmit()" %>
     </div>    
     <div>
       <%= form.label :favorite %>
@@ -32,4 +40,5 @@
     </div>
   <% end %>
   <hr>
+
 <% end %>

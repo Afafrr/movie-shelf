@@ -1,7 +1,12 @@
 class WatchlistItemsController < ApplicationController
   def index
+    @status = params[:status]
     @user = User.first
     @watchlist_items = @user.watchlist_items.includes(:movie)
+
+    if @status.present?
+      @watchlist_items = @watchlist_items.where(status: @status)
+    end
   end
 
   def update
