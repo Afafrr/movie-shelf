@@ -1,0 +1,31 @@
+<h1>My Watchlist</h1>
+<p>User: <%= @user.email %></p>
+<% if notice.present? %>
+  <p><%= notice %></p>
+<% end %>
+
+<% if alert.present? %>
+  <p style='color: red'><%= alert %></p>
+<% end %>
+<% @watchlist_items.each do |item| %>
+  <div>
+    <h2><%= item.movie.title %> (<%= item.movie.year %>)</h2>
+
+    <p>Status: <%= item.status %></p>
+    <p>Favorite: <%= item.favorite ? "Yes" : "No" %></p>
+    <p><%= item.movie.overview %></p>
+
+    <%= form_with model: item do |form| %>
+      <div>
+        <%= form.label :status %>
+        <%= form.select :status, WatchlistItem::STATUS_OPTIONS, {}, onchange: "this.form.requestSubmit()" %>
+      </div>
+
+      <div>
+        <%= form.label :favorite %>
+        <%= form.check_box :favorite, onchange: "this.form.requestSubmit()" %>
+      </div>
+    <% end %>
+  </div>
+  <hr>
+<% end %>

@@ -1,5 +1,5 @@
 class WatchlistItem < ApplicationRecord
-  STATUS_OPTIONS = ["want_to_watch", "watching", "watched"]
+  STATUS_OPTIONS = ["want_to_watch", "watching", "watched"].freeze
 
   belongs_to :movie
   belongs_to :user
