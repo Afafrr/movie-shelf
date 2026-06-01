@@ -4,4 +4,9 @@ class Movie < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
   validates :title, presence: true
+  validates :year,
+            numericality: {
+              only_integer: true,
+            },
+            allow_nil: true
 end

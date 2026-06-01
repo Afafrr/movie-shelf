@@ -8,6 +8,9 @@ class WatchlistItem < ApplicationRecord
   belongs_to :movie
   belongs_to :user
 
+  validates :movie, presence: true
+  validates :user, presence: true
   validates :status, presence: true, inclusion: { in: STATUS_OPTIONS.keys }
+  validates :favorite, inclusion: { in: [true, false] }
   validates :movie_id, uniqueness: { scope: :user_id }
 end
