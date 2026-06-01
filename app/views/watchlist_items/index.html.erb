@@ -5,12 +5,14 @@
 <% end %>
 
 <% if alert.present? %>
-  <p style='color: red'><%= alert %></p>
+  <p style="color: red"><%= alert %></p>
 <% end %>
+
+  <%= link_to "Search movies", search_movies_path %>
 
 <nav>
   <%= link_to "All", watchlist_items_path %>
-  <% WatchlistItem::STATUS_OPTIONS.each do |key, val|%>
+  <% WatchlistItem::STATUS_OPTIONS.each do |key, val| %>
     <%= link_to val, watchlist_items_path(status: key) %>
   <% end %>
 </nav>
@@ -23,17 +25,17 @@
         watchlist_item_path(item),
         method: :delete,
         class: "btn btn-dark" %>
-  </div>  
+  </div>
 
   <p>Status: <%= item.status %></p>
   <p>Favorite: <%= item.favorite ? "Yes" : "No" %></p>
-  <p><%= item.movie.overview %></p>  
-  
+  <p><%= item.movie.overview %></p>
+
   <%= form_with model: item do |form| %>
     <div>
       <%= form.label :status %>
       <%= form.select :status, WatchlistItem::STATUS_OPTIONS.keys, {}, onchange: "this.form.requestSubmit()" %>
-    </div>    
+    </div>
     <div>
       <%= form.label :favorite %>
       <%= form.check_box :favorite, onchange: "this.form.requestSubmit()" %>
