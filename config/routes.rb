@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root "watchlist_items#index"
 
-  resources :watchlist_items, only: [:index, :update, :destroy]
+  resources :watchlist_items, only: [:index, :create, :update, :destroy]
 
   get "movies/search" => "movies_search#search", as: :search_movies
 end

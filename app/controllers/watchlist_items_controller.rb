@@ -9,6 +9,35 @@ class WatchlistItemsController < ApplicationController
     end
   end
 
+  def create
+    movie_params = params[:movie]
+    movie = Movie.find_or_create_by(external_id: movie_params[:external_id]) do |movie|
+      movie.external_id = movie_params[:external_id]
+      movie.title = movie_params[:title]
+      movie.year = movie_params[:year]
+      movie.poster_url = movie_params[:poster_url]
+      movie.overview = movie_params[:overview]
+    end
+
+    unless movie.persisted?
+      redirect_to search_movies_path, alert: movie.errors.full_messages.to_sentence
+      return
+    end
+
+    @user = User.first
+    watchlist_item = @user.watchlist_items.new(
+      movie: movie,
+      favorite: false,
+      status: "want_to_watch",
+    )
+
+    if watchlist_item.save
+      redirect_to watchlist_items_path, notice: "Movie added to watchlist."
+    else
+      redirect_to search_movies_path(query: params[:query]), alert: watchlist_item.errors.full_messages.to_sentence
+    end
+  end
+
   def update
     @user = User.first
     @watchlist_item = @user.watchlist_items.find(params[:id])
