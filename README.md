@@ -1,24 +1,49 @@
-# README
+# Movie Shelf
+Application for searching movies and managing a personal movie watchlist.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- search movies using the OMDb API,
+- add movies to their watchlist,
+- mark movies as want to watch, watching, or watched,
+- mark movies as favorites,
+- filter the watchlist by status,
+- remove movies from the watchlist.
 
-Things you may want to cover:
 
-* Ruby version
+## Setup
 
-* System dependencies
+```sh
+bundle install
+bin/rails db:prepare
+```
 
-* Configuration
+Create an `.env` file with an OMDb API key:
 
-* Database creation
+```sh
+OMDB_API_KEY=your_api_key
+```
 
-* Database initialization
+Start the app:
 
-* How to run the test suite
+```sh
+bin/dev
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Then open:
 
-* Deployment instructions
+```text
+http://localhost:3000
+```
 
-* ...
+## Tests
+
+Run all tests:
+
+```sh
+bin/rails test
+```
+
+Run one test file:
+
+```sh
+bin/rails test test/models/watchlist_item_test.rb
+```
