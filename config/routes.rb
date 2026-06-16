@@ -5,7 +5,14 @@ Rails.application.routes.draw do
 
   root "watchlist_items#index"
 
+  get "/signup", to: "users#new", as: :signup
+  post "/signup", to: "users#create"
+
+  get "login", to: "session#new", as: :login
+  post "login", to: "session#create"
+  delete "logout", to: "session#destroy", as: :logout
+
   resources :watchlist_items, only: [:index, :create, :update, :destroy]
 
-  get "movies/search" => "movies_search#search", as: :search_movies
+  get "movies/search", to: "movies_search#search", as: :search_movies
 end

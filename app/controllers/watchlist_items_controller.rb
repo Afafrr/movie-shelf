@@ -1,7 +1,9 @@
 class WatchlistItemsController < ApplicationController
+  before_action :is_auth
+
   def index
     @status = params[:status]
-    @user = User.first
+    @user = current_user
     @watchlist_items = @user.watchlist_items.includes(:movie)
 
     if @status.present?
@@ -24,7 +26,7 @@ class WatchlistItemsController < ApplicationController
       return
     end
 
-    @user = User.first
+    @user = current_user
     watchlist_item = @user.watchlist_items.new(
       movie: movie,
       favorite: false,
@@ -39,7 +41,7 @@ class WatchlistItemsController < ApplicationController
   end
 
   def update
-    @user = User.first
+    @user = current_user
     @watchlist_item = @user.watchlist_items.find(params[:id])
     watch_param = params[:watchlist_item]
     result = @watchlist_item.update(status: watch_param[:status], favorite: watch_param[:favorite])
@@ -52,7 +54,7 @@ class WatchlistItemsController < ApplicationController
   end
 
   def destroy
-    @user = User.first
+    @user = current_user
     @watchlist_item = @user.watchlist_items.destroy(params[:id])
 
     if @watchlist_item

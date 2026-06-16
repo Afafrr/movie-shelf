@@ -1,5 +1,4 @@
 <h1>My Watchlist</h1>
-<p>User: <%= @user.email %></p>
 <% if notice.present? %>
   <p><%= notice %></p>
 <% end %>
@@ -9,7 +8,6 @@
 <% end %>
 
 <%= link_to "Search movies", search_movies_path %>
-
 <nav>
   <%= link_to "All", watchlist_items_path %>
   <% WatchlistItem::STATUS_OPTIONS.each do |key, val| %>
